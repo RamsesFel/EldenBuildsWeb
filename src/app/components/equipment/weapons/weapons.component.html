@@ -1,0 +1,104 @@
+<br>
+<input type="text" [(ngModel)]="formWeapon" placeholder="Search Weapon By Name">
+<select [(ngModel)]="weaponCategory">
+    @for (t of allWeaponTypes; track $index) {
+        <option value="{{t}}">{{t}}</option>
+    }
+    </select>
+<button (click)="searchType()">Search</button>
+<button (click)="getRandomWeapon()">Get Random Weapon</button>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Attack</th>
+        <th>Defence</th>
+        <th>Scaling</th>
+        <th>Required Attributes</th>
+        <th>Image</th>
+        <th></th>
+    </tr>
+    @if (isRandom) {
+        @for (weapon of singleWeapon; track $index) {
+            @for (w of weapon.data; track $index) {
+                @if (w.name == formWeapon) {
+                <tr>
+                    <td>{{w.name}}</td>
+                    <td>{{w.description}}</td>
+                    <td>{{w.category}}</td>
+                    <td>@for (a of w.attack; track $index) {
+                        {{a.name}} {{a.amount}}
+                    }</td>
+                    <td>@for (d of w.defence; track $index) {
+                        {{d.name}} {{d.amount}}
+                    }</td>
+                    <td>@for (s of w.scalesWith; track $index) {
+                        {{s.name}} {{s.scaling}}
+                    }</td>
+                    <td>@for (r of w.requiredAttributes; track $index) {
+                        {{r.name}} {{r.amount}}
+                    }</td>
+                    <td><img src="{{w.image}}"></td>
+                    <td><button class="tablebutton" (click)="addWeapon(w.name)">Add</button></td>
+                </tr>
+            }
+        }
+    }
+
+    }@else if(singleWeapon[0] != null){
+            @for (weapon of singleWeapon; track $index) {
+                @for (w of weapon.data; track $index) {
+                    @if (w.category === weaponCategory || weaponCategory == "All") {
+                <tr>
+                    <td>{{w.name}}</td>
+                    <td>{{w.description}}</td>
+                    <td>{{w.category}}</td>
+                    <td>@for (a of w.attack; track $index) {
+                        {{a.name}} {{a.amount}}
+                    }</td>
+                    <td>@for (d of w.defence; track $index) {
+                        {{d.name}} {{d.amount}}
+                    }</td>
+                    <td>@for (s of w.scalesWith; track $index) {
+                        {{s.name}} {{s.scaling}}
+                    }</td>
+                    <td>@for (r of w.requiredAttributes; track $index) {
+                        {{r.name}} {{r.amount}}
+                    }</td>
+                    <td><img src="{{w.image}}"></td>
+                    <td><button class="tablebutton" (click)="addWeapon(w.name)">Add</button></td>
+                </tr>
+            }
+        }
+    }
+    
+    } @else{
+        @for (weapon of weaponList; track $index) {
+            @for (w of weapon.data; track $index) {
+                @if (w.category === weaponCategory || weaponCategory == "All") {
+                    <tr>
+                        <td>{{w.name}}</td>
+                        <td>{{w.description}}</td>
+                        <td>{{w.category}}</td>
+                        <td>@for (a of w.attack; track $index) {
+                            {{a.name}} {{a.amount}}
+                        }</td>
+                        <td>@for (d of w.defence; track $index) {
+                            {{d.name}} {{d.amount}}
+                        }</td>
+                        <td>@for (s of w.scalesWith; track $index) {
+                            {{s.name}} {{s.scaling}}
+                        }</td>
+                        <td>@for (r of w.requiredAttributes; track $index) {
+                            {{r.name}} {{r.amount}}
+                        }</td>
+                        <td><img src="{{w.image}}"></td>
+                        <td><button class="tablebutton" (click)="addWeapon(w.name)">Add</button></td>
+                    </tr>
+                }
+            }
+        }
+    }
+</table>
+

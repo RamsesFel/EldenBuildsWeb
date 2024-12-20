@@ -1,0 +1,17 @@
+
+<ul>
+    <li class="something"><a routerLink="/">Home </a></li>
+    <li class="something"><a routerLink="Create">Create</a></li>
+    <li class="something"><a routerLink="All">All Builds</a></li>
+   <li> @if (!loggedIn) {
+    <!-- Custom component that handles log in -->
+    <asl-google-signin-button theme="filled_black"></asl-google-signin-button>
+    
+    } @else {
+    <!-- calls our log out method -->
+    <a class="btn btn-outline-dark" style="float: right; margin-top: 5px; margin-right: 5px;" (click)="signOut()">Sign Out</a> }</li>
+  </ul>
+  <br>
+  <router-outlet></router-outlet>
+
+ 

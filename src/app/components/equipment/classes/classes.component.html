@@ -1,0 +1,32 @@
+<br>
+<input type="text" [(ngModel)]="formClass" placeholder="Search Class By Name">
+<button (click)="getClassByName()">Search</button>
+<button (click)="getRandomClass()">Get Random Class</button>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Stats</th>
+        <th>Image</th>
+        <th></th>
+    </tr>
+@for (c of currentClass.data; track $index) {
+    <tr>
+        <td>{{c.name}}</td>
+        <td>{{c.description}}</td>
+        <td>
+            Level: {{c.stats.level}} <br>
+            Vigor: {{c.stats.vigor}} <br>
+            Mind: {{c.stats.mind}} <br>
+            Endurance: {{c.stats.endurance}} <br>
+            Strength: {{c.stats.strength}} <br>
+            Dexterity: {{c.stats.dexterity}} <br>
+            Intelligence: {{c.stats.intelligence}} <br>
+            Faith: {{c.stats.faith}} <br>
+            Arcane: {{c.stats.arcane}}
+        </td>
+        <td><img src="{{c.image}}"></td>
+        <td><button class="tablebutton" (click)="addClass(c.name)">Add</button></td>
+    </tr>
+}
+</table>

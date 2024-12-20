@@ -1,0 +1,65 @@
+
+<input type="text" [(ngModel)]="formArmor" placeholder="Search Armor By Name">
+<select [(ngModel)]="armorCategory" (select)="getArmorList()">
+    <option value="All">All Armor</option>
+    <option value="Helm">Helm</option>
+    <option value="Chest Armor">Chest</option>
+    <option value="Gauntlets">Gauntlet</option>
+    <option value="Leg Armor">Legs</option>
+    </select>
+<button (click)="getArmorByName()">Search</button>
+<button (click)="getRandomArmor()">Get Random Armor</button>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Damage Negation</th>
+        <th>Resistance</th>
+        <th>Weight</th>
+        <th>Image</th>
+        <th></th>
+    </tr>
+    @if (currentArmor.data != null) {
+        @for (a of currentArmor.data; track $index) {
+            @if (a.category.includes(armorCategory) || armorCategory == "All") {
+                <tr>
+                    <td>{{a.name}}</td>
+                    <td>{{a.description}}</td>
+                    <td>{{a.category}}</td>
+                    <td>@for (dn of a.dmgNegation; track $index) {
+                        {{dn.name}} {{dn.amount}}
+                        }</td>
+                    <td>@for (r of a.resistance; track $index) {
+                        {{r.name}} {{r.amount}}
+                        }</td>
+                    <td>{{a.weight}}</td>
+                    <td><img src="{{a.image}}"></td>
+                    <td><button class="tablebutton" (click)="addArmor(a.name, a.category)">Add</button></td>
+                </tr>
+            }
+        }
+    }@else {
+        @for (armor of armorList; track $index) {
+            @for(a of armor.data; track $index){
+                @if (a.category.includes(armorCategory) || armorCategory == "All") {
+
+                    <tr>
+                        <td>{{a.name}}</td>
+                        <td>{{a.description}}</td>
+                        <td>{{a.category}}</td>
+                        <td>@for (dn of a.dmgNegation; track $index) {
+                            {{dn.name}} {{dn.amount}}
+                            }</td>
+                        <td>@for (r of a.resistance; track $index) {
+                            {{r.name}} {{r.amount}}
+                            }</td>
+                        <td>{{a.weight}}</td>
+                        <td><img src="{{a.image}}"></td>
+                        <td><button class="tablebutton" (click)="addArmor(a.name,a.category)">Add</button></td>
+                    </tr>
+                }
+            }
+        }
+    }
+</table>
